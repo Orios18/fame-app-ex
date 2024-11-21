@@ -8,7 +8,7 @@
     <style>
         body {
             --bg-color: var(--tg-theme-bg-color);
-            font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
+            font-family: "Arial", sans-serif;
             background-color: var(--bg-color);
             color: var(--tg-theme-text-color);
             margin: 0;
@@ -19,23 +19,42 @@
         main {
             padding: 20px;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* Profile Section */
+        /* Profile Section Styling */
         .profile-section {
-            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .profile-section h2 {
             font-size: 24px;
+            margin-bottom: 10px;
         }
 
         .profile-section p {
             font-size: 18px;
             color: var(--tg-theme-link-color);
+            margin-bottom: 10px;
         }
 
-        /* Bottom Bar */
+        .profile-section .fame-level {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Bottom Bar Styling */
         .bottom-bar {
             position: fixed;
             bottom: 0;
@@ -45,7 +64,8 @@
             justify-content: space-around;
             background-color: var(--tg-theme-bg-color);
             padding: 10px 0;
-            border-top: 1px solid var(--tg-theme-text-color);
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .bottom-bar button {
@@ -53,11 +73,24 @@
             border: none;
             color: var(--tg-theme-text-color);
             font-size: 16px;
+            padding: 10px;
             cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 8px;
+            width: 100%;
+            text-align: center;
         }
 
         .bottom-bar button:hover {
-            color: var(--tg-theme-link-color);
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Active State for Bottom Bar Buttons */
+        .bottom-bar button.active {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
         }
 
     </style>
@@ -67,14 +100,14 @@
     <main>
         <div class="profile-section">
             <h2>Welcome, <span id="user-name">User</span>!</h2>
-            <p>Your Fame Level: <span id="user-fame">0</span></p>
+            <p>Your Fame Level: <span id="user-fame" class="fame-level">0</span></p>
         </div>
 
         <!-- Bottom Bar -->
         <div class="bottom-bar">
-            <button onclick="showProfile()">Profile</button>
-            <button onclick="showHallOfFame()">Hall of Fame</button>
-            <button onclick="showStats()">Stats</button>
+            <button id="profile-btn" onclick="showProfile()">Profile</button>
+            <button id="hall-of-fame-btn" onclick="showHallOfFame()">Hall of Fame</button>
+            <button id="stats-btn" onclick="showStats()">Stats</button>
         </div>
     </main>
 
@@ -93,17 +126,26 @@
 
         // Functions to display different sections (this will update based on what the user selects)
         function showProfile() {
+            setActiveButton('profile-btn');
             alert("Displaying Profile Page"); // Placeholder for actual navigation logic
         }
 
         function showHallOfFame() {
+            setActiveButton('hall-of-fame-btn');
             alert("Displaying Hall of Fame Page");
         }
 
         function showStats() {
+            setActiveButton('stats-btn');
             alert("Displaying Stats Page");
         }
 
+        // Function to set active button
+        function setActiveButton(buttonId) {
+            const buttons = document.querySelectorAll('.bottom-bar button');
+            buttons.forEach(button => button.classList.remove('active')); // Remove active class from all buttons
+            document.getElementById(buttonId).classList.add('active'); // Add active class to the clicked button
+        }
     </script>
 </body>
 </html>
